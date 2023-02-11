@@ -32,9 +32,12 @@ services:
       - zookeeper
     networks:
       - kafkazoonetwork
+    volumes:
+      - ./kafka:/bitnami/kafka
 
 volumes:
   zoo:
+  kafka:
 
 networks:
   kafkazoonetwork:
