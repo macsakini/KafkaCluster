@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: zookeeper
+    restart: always
+    hostname: zookeeper
+    ports:
+      - "2181:2181"
+      - "8080:8080"
+      - "2888:2888"
+      - "3888:3888"
+    networks:
+      - kafkazoonetwork
+    volumes:
+      - zoo/zoo.cfg:/conf/zoo.cfg
+      - zoo/myid:/data/myid
+      # - .zoo/data:/data/
+      - .zoo/logs:/logs/
+      # - .zoo/conf:/conf/
+
+
+  kafka-broker:
+    image: bitnami/kafka
+    hostname: kafka
+    restart: always
+    ports:
+      - "9092:9092"
+    env_file:
+      - kafka.env
+    depends_on:
+      - zookeeper
+    networks:
+      - kafkazoonetwork
+
+volumes:
+  zoo:
+
+networks:
+  kafkazoonetwork:
+ 
+      
+    
