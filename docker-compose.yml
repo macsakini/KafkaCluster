@@ -15,9 +15,9 @@ services:
     volumes:
       - ./zoo/zoo.cfg:/conf/zoo.cfg
       - ./zoo/myid:/data/myid
-      # - .zoo/data:/data/
-      - ./zoo/logs:/logs/
-      # - .zoo/conf:/conf/
+      - .zoo/data:/data/
+      - .zoo/logs:/logs/
+      - .zoo/conf:/conf/
 
 
   kafka-broker:
