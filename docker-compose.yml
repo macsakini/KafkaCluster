@@ -13,10 +13,10 @@ services:
     networks:
       - kafkazoonetwork
     volumes:
-      - zoo/zoo.cfg:/conf/zoo.cfg
-      - zoo/myid:/data/myid
+      - ./zoo/zoo.cfg:/conf/zoo.cfg
+      - ./zoo/myid:/data/myid
       # - .zoo/data:/data/
-      - .zoo/logs:/logs/
+      - ./zoo/logs:/logs/
       # - .zoo/conf:/conf/
 
 
