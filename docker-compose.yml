@@ -2,7 +2,7 @@ version: '3'
 
 services:
   zookeeper:
-    image: zookeeper
+    image: zookeeper:latest
     restart: always
     hostname: zookeeper
     ports:
@@ -15,29 +15,27 @@ services:
     volumes:
       - ./zoo/zoo.cfg:/conf/zoo.cfg
       - ./zoo/myid:/data/myid
-      - .zoo/data:/data/
-      - .zoo/logs:/logs/
-      - .zoo/conf:/conf/
+      - ./zoo/logs:/logs/
+      - ./zoo/conf:/conf/
 
 
   kafka-broker:
-    image: bitnami/kafka
+    image: bitnami/kafka:latest
     hostname: kafka
     restart: always
     ports:
       - "9092:9092"
+      - "9093:9093"
     env_file:
       - kafka/kafka.env
+    volumes:
+      - './private/server.keystore.jks:/opt/bitnami/kafka/config/certs/kafka.keystore.jks:ro'
+      - './private/client.truststore.jks:/opt/bitnami/kafka/config/certs/kafka.truststore.jks:ro'
     depends_on:
       - zookeeper
     networks:
       - kafkazoonetwork
-    volumes:
-      - ./kafka:/bitnami/kafka
-
-volumes:
-  zoo:
-  kafka:
+  
 
 networks:
   kafkazoonetwork:
